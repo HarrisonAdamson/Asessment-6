@@ -20,9 +20,19 @@ rollbar.log('Hello world!')
 // record a generic message and send it to Rollbar
 rollbar.log('Hello world!')
 
-app.use(express.static(path.join(__dirname, "./public")));
-app.use('/js', express.static(path.join(__dirname, "./public/index.js")));
-app.use('/styles', express.static(path.join(__dirname, "./public/styles.css")));
+app.get("/", (req, res) => {
+  res.sendFile(path.join(__dirname, "public/index.html"))
+})
+
+app.get("/js", (req, res) => {
+  res.sendFile(path.join(__dirname, "public/index.js"));
+})
+
+app.get("/styles", (req, res) => {
+  res.sendFile(path.join(__dirname, "public/index.css"))
+})
+
+app.use(express.static(path.join(__dirname, "public")))
 
 // Add up the total health of all the robots
 const calculateTotalHealth = (robots) =>
