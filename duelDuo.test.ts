@@ -1,18 +1,18 @@
-import { Builder, Capabilities, By } from "selenium-webdriver"
-
 require('chromedriver')
+
+const { Builder, Capabilities, By } = require('selenium-webdriver');
 
 const driver = new Builder().withCapabilities(Capabilities.chrome()).build()
 
 beforeEach(async () => {
-    driver.get('http://localhost:3000/')
+   await (await driver).get('http://localhost:3000')
 })
 
 afterAll(async () => {
-    driver.quit()
+   await (await driver).quit()
 })
 
-test('Title shows up when page loads', async () => {
+test('title shows up when page loads', async () => {
     const title = await driver.findElement(By.xpath('//h1[text()= "Duel Duo"]'))
     expect(title.isDisplayed()).toBeTruthy()
 

@@ -5,14 +5,13 @@
   "main": "server.js",
   "scripts": {
     "test": "jest",
-    "start": "npm-run-all -p nodemon browser-sync",
+    "start": "npm-run-all -p nodemon",
     "nodemon": "nodemon server.js",
-    "browser-sync": "browser-sync start --proxy localhost:8000 --files=**/*  --ignore=node_modules --reload-delay 10000 --no-ui"
+    "dev": "nodemon server.js"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "browser-sync": "^2.29.1",
     "chromedriver": "^112.0.0",
     "driver": "^1.0.0",
     "express": "^4.18.2",

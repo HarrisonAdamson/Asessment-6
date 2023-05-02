@@ -17,8 +17,7 @@ var rollbar = new Rollbar({
 // record a generic message and send it to Rollbar
 rollbar.log('Hello world!')
 
-// record a generic message and send it to Rollbar
-rollbar.log('Hello world!')
+
 
 app.get("/", (req, res) => {
   res.sendFile(path.join(__dirname, "public/index.html"))
@@ -64,6 +63,7 @@ app.get("/api/robots", (req, res) => {
     res.status(200).send(botsArr);
   } catch (error) {
     console.error("ERROR GETTING BOTS", error);
+    rollbar.error('ERROR GETTING BOTS', error);
     res.sendStatus(400);
   }
 });
@@ -74,6 +74,7 @@ app.get("/api/robots/shuffled", (req, res) => {
     res.status(200).send(shuffled);
   } catch (error) {
     console.error("ERROR GETTING SHUFFLED BOTS", error);
+    rollbar.error("ERROR GETTING BOTS", error);
     res.sendStatus(400);
   }
 });
@@ -91,12 +92,14 @@ app.post("/api/duel", (req, res) => {
     if (compHealth > playerHealth) {
       playerRecord.losses += 1;
       res.status(200).send("You lost!");
+      rollbar.info('Someone just lost')
     } else {
       playerRecord.losses += 1;
       res.status(200).send("You won!");
     }
   } catch (error) {
     console.log("ERROR DUELING", error);
+    rollbar.error('ERROR DUELING', error);
     res.sendStatus(400);
   }
 });
@@ -109,6 +112,8 @@ app.get("/api/player", (req, res) => {
     res.sendStatus(400);
   }
 });
+
+app.use(rollbar.errorHandler());
 
 const port = process.env.PORT || 3000
 
