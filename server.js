@@ -21,8 +21,8 @@ rollbar.log('Hello world!')
 rollbar.log('Hello world!')
 
 app.use(express.static(path.join(__dirname, "./public")));
-app.use(express.static(path.join(__dirname, "./public/index.js")));
-app.use(express.static(path.join(__dirname, "./public/styles.css")));
+app.use('/js', express.static(path.join(__dirname, "./public/index.js")));
+app.use('/styles', express.static(path.join(__dirname, "./public/styles.css")));
 
 // Add up the total health of all the robots
 const calculateTotalHealth = (robots) =>
